@@ -266,7 +266,7 @@ Todos com a senha `senha123`:
 
 ## Como citar o projeto
 
-Ribas, José André, Victor Santos, Coelho, Vinicius. **Notice.:desenvolvimento de um sistema
+RIBAS, José André, SANTOS, Victor Gustavo, COELHO, Vinicius. **Notice.:desenvolvimento de um sistema
 web para organização e divulgação de avisos escolares. 2026. 30 p. Trabalho de Conclusão de Curso (Técnico em Informática para Internet) — Etec de Campo Limpo Paulista, Campo Limpo Paulista, 2026.
 
 ## Contato
