@@ -266,11 +266,12 @@ Todos com a senha `senha123`:
 
 ## Como citar o projeto
 
-[Autores]. [Título oficial do TCC]. 2026. [Número de páginas] p. Trabalho de Conclusão de Curso (Técnico em Informática para Internet) — Etec de Campo Limpo Paulista, Campo Limpo Paulista, 2026.
+Ribas, José André, Victor Santos, Coelho, Vinicius. **Notice.:desenvolvimento de um sistema
+web para organização e divulgação de avisos escolares. 2026. 30 p. Trabalho de Conclusão de Curso (Técnico em Informática para Internet) — Etec de Campo Limpo Paulista, Campo Limpo Paulista, 2026.
 
 ## Contato
-
-[E-mails dos integrantes]
+victorgustavo1403@gmail.com
+viniciuscoe009@gmail.com
 
 ## Trabalho escrito
 
