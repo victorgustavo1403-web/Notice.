@@ -1,0 +1,80 @@
+/* Candidatura nas vagas (dentro do pop-up da publicação) */
+.cand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 18px;
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.cand .pubmodal-descricao-rotulo { margin-bottom: 0; }
+.cand-texto { margin: 0; font-size: var(--fs-sm, 10.5pt); line-height: 1.45; color: #666666; }
+.cand-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+.cand-soltar {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 100%;
+  padding: 18px 12px;
+  border: 2px dashed #c7c7cc;
+  border-radius: 18px;
+  background: #f7f6f2;
+  color: #333333;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.cand-soltar strong { font-size: var(--fs-sm, 10.5pt); }
+.cand-soltar small { font-size: var(--fs-xs, 9pt); color: #888888; }
+.cand-soltar:hover, .cand-soltar.arrastando { border-color: #edbe03; background: #fdf8e4; }
+.cand-soltar:focus-visible { outline: 2px solid #333333; outline-offset: 3px; }
+
+.cand-arquivo {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  background: #f7f6f2;
+  color: #333333;
+  font: inherit;
+  text-align: left;
+}
+button.cand-arquivo { cursor: pointer; transition: background 0.2s; }
+button.cand-arquivo:hover { background: #efede6; }
+.cand-arquivo span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-sm, 10.5pt); font-weight: 600; }
+.cand-arquivo small { flex: none; font-size: var(--fs-xs, 9pt); color: #888888; }
+.cand-limpar { display: grid; place-items: center; flex: none; width: 28px; height: 28px; padding: 0; border: none; border-radius: 50%; background: transparent; color: #666666; cursor: pointer; }
+.cand-limpar:hover { background: rgba(0, 0, 0, 0.06); }
+
+.cand-recado { display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-xs, 9pt); font-weight: 700; color: #555555; }
+.cand-recado small { font-weight: 500; color: #999999; }
+.cand-recado textarea {
+  resize: vertical; min-height: 64px;
+  padding: 10px 12px;
+  border: 1px solid #dddddd;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #333333;
+  font: inherit; font-size: var(--fs-sm, 10.5pt); font-weight: 500;
+}
+.cand-recado textarea:focus { outline: none; border-color: #333333; }
+
+.cand-erro { margin: 0; font-size: var(--fs-xs, 9pt); font-weight: 600; color: #b3261e; }
+.cand-enviar { width: 100%; }
+
+.cand-status { display: flex; align-items: center; gap: 10px; color: #3f7d0a; }
+.cand-status div { display: flex; flex-direction: column; }
+.cand-status strong { font-size: var(--fs-md, 11pt); color: #333333; }
+.cand-status small { font-size: var(--fs-xs, 9pt); color: #888888; }
+.cand-acoes { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.cand-retirar { padding: 6px 2px; border: none; background: none; color: #b3261e; font: inherit; font-size: var(--fs-xs, 9pt); font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.cand-retirar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.cand-admin { flex-direction: row; align-items: center; flex-wrap: wrap; }
+.cand-icone { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: #fdf3c4; color: #8a6d00; }
+.cand-admin-texto { flex: 1; margin: 0; font-size: var(--fs-sm, 10.5pt); color: #555555; min-width: 140px; }
+.cand-admin-texto strong { color: #333333; }
+.cand-admin-link { text-decoration: none; }

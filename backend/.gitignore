@@ -1,0 +1,8 @@
+node_modules/
+notice.db
+.env
+
+# currículos dos alunos (dados pessoais) e cópias automáticas do banco
+curriculos/*
+!curriculos/.gitkeep
+backups/

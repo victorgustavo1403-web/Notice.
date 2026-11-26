@@ -1,0 +1,206 @@
+/* ===== Dropdown do sistema (substitui o <select> nativo) ===== */
+
+.dd-gatilho {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: #333333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, transform 0.15s ease;
+}
+.dd-gatilho:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.dd-valor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.dd-valor.vazio {
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 400;
+}
+.dd-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dd-bolinha {
+  display: block;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dd-seta {
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.dd-gatilho.aberto .dd-seta {
+  transform: rotate(180deg);
+}
+
+/* --- variante "campo": mesmo visual dos inputs de vidro dos formulários --- */
+.dd-campo {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.152);
+}
+.dd-campo:hover:not(:disabled) {
+  border-color: rgba(51, 51, 51, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+}
+.dd-campo:focus-visible,
+.dd-campo.aberto {
+  border-color: #333333;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(51, 51, 51, 0.08);
+}
+
+/* --- variante "compacto": edição em linha de tabelas --- */
+.dd-compacto {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  background: #ffffff;
+}
+.dd-compacto:hover:not(:disabled) {
+  border-color: #aaaaaa;
+}
+.dd-compacto:focus-visible,
+.dd-compacto.aberto {
+  border-color: #333333;
+  box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.08);
+}
+
+/* --- variante "pilula": barras de ação --- */
+.dd-pilula {
+  width: auto;
+  min-width: 170px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  font-weight: 600;
+}
+.dd-pilula:hover:not(:disabled) {
+  border-color: #333333;
+}
+.dd-pilula:focus-visible,
+.dd-pilula.aberto {
+  border-color: #333333;
+  box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.08);
+}
+
+/* ===== Lista (renderizada em portal, acima de modais) ===== */
+.dd-lista {
+  z-index: 3000;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  overflow-y: auto;
+  border-radius: 20px;
+  font-family: "inter", sans-serif;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ffffff 40%, #ffffff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 22px 50px rgba(0, 0, 0, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  transform-origin: top center;
+  animation: dd-abrir 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 51, 51, 0.25) transparent;
+}
+.dd-lista.acima {
+  transform-origin: bottom center;
+}
+.dd-opcao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: #333333;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.dd-opcao + .dd-opcao {
+  margin-top: 2px;
+}
+.dd-opcao.ativa {
+  background: rgba(51, 51, 51, 0.07);
+}
+.dd-opcao.selecionada {
+  font-weight: 800;
+}
+.dd-opcao.desabilitada {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.dd-check {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+@keyframes dd-abrir {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.dd-lista.acima {
+  animation-name: dd-abrir-acima;
+}
+@keyframes dd-abrir-acima {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dd-lista,
+  .dd-seta {
+    animation: none !important;
+    transition: none !important;
+  }
+}

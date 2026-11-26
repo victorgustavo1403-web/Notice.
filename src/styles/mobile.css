@@ -1,0 +1,268 @@
+/* =====================================================================
+   LAYOUT PRÓPRIO PARA CELULAR (≤ 768px)
+   Barra de abas inferior, folha "Mais", pop-ups em tela cheia, etc.
+   Em telas maiores a barra inferior nem aparece.
+   ===================================================================== */
+.nav-inferior, .folha-fundo { display: none; }
+
+@media (max-width: 768px) {
+  html { overflow-x: clip; }
+  /* ---------- barra superior enxuta: logo + sino + foto ---------- */
+  .nav-bar-h { height: 60px; padding: 0 16px; }
+  .nav-bar-h .links-grupo,
+  .nav-bar-h .nav-menu-botao,
+  .nav-bar-h .sair,
+  .nav-bar-h .container-icone-perfilcad { display: none !important; }
+  .logo-h .logo-tema { height: 30px; }
+
+  body.com-nav-inferior { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  body.com-nav-inferior .tema-botao { display: none; }
+
+  /* ---------- barra de abas inferior ---------- */
+  .nav-inferior {
+    position: fixed;
+    z-index: 900; /* abaixo dos pop-ups (1000+): quando um abre, ele cobre a barra */
+    left: 12px;
+    right: 12px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    height: 62px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 32px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(245, 243, 238, 0.85));
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 12px 30px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .nav-inferior-item {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: none;
+    border-radius: 26px;
+    background: transparent;
+    color: #777777;
+    font-family: inherit;
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-inferior-item span { line-height: 1; }
+  .nav-inferior-item.ativo { background: #333333; color: #f5f4ee; }
+  .nav-inferior-item:active { transform: scale(0.96); }
+
+  /* ---------- folha "Mais" (sobe de baixo) ---------- */
+  .folha-fundo {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    align-items: flex-end;
+    background: rgba(0, 0, 0, 0.45);
+    animation: folha-fundo-entra 0.2s ease;
+  }
+  .folha {
+    width: 100%;
+    max-height: 86vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 10px 16px calc(18px + env(safe-area-inset-bottom));
+    border-radius: 28px 28px 0 0;
+    background: linear-gradient(135deg, #f5f3ee 0%, #ffffff 60%);
+    color: #333333;
+    box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.25);
+    animation: folha-sobe 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .folha-alca { display: block; width: 44px; height: 5px; margin: 2px auto 14px; border-radius: 5px; background: rgba(51, 51, 51, 0.2); }
+  .folha-perfil {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid rgba(51, 51, 51, 0.07);
+    color: inherit;
+    text-decoration: none;
+  }
+  .folha-perfil span { display: flex; flex-direction: column; min-width: 0; }
+  .folha-perfil strong { font-size: var(--fs-md, 11pt); font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .folha-perfil small { font-size: var(--fs-xs, 9pt); color: #888888; }
+  .folha-lista { list-style: none; margin: 12px 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .folha-lista a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px;
+    border-radius: 16px;
+    color: #333333;
+    font-size: var(--fs-md, 11pt);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .folha-lista a i { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .folha-lista a:active, .folha-lista a.ativo { background: rgba(51, 51, 51, 0.07); }
+  .folha-rodape { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(51, 51, 51, 0.1); }
+  .folha-rodape button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    border: 1.5px solid rgba(51, 51, 51, 0.18);
+    border-radius: 60px;
+    background: #ffffff;
+    color: #333333;
+    font-family: inherit;
+    font-size: var(--fs-sm, 10pt);
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .folha-rodape .sair-folha { background: #333333; border-color: #333333; color: #f5f4ee; }
+}
+
+@keyframes folha-fundo-entra { from { opacity: 0; } to { opacity: 1; } }
+@keyframes folha-sobe { from { transform: translateY(100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .folha, .folha-fundo { animation: none; }
+}
+
+/* =====================================================================
+   HOMES (aluno/professor, administrador, super admin): coluna única
+   ===================================================================== */
+@media (max-width: 768px) {
+  .sla {
+    flex-direction: column;
+    height: auto;
+    margin-top: 60px;
+    padding: 26px 20px 8px;
+    gap: 18px;
+  }
+  .hometext-container { height: auto; gap: 14px; }
+  .hometext-container h2 { font-size: clamp(30px, 9.6vw, 46px); letter-spacing: -0.04em; overflow-wrap: anywhere; }
+  .homeText { gap: 10px; }
+  .homeText-descricao { font-size: var(--fs-md, 11pt); padding-left: 0; margin-top: 10px; }
+  .n-h { font-size: 38pt; }
+  .otice-h { font-size: 22pt; }
+  .ponto-h { font-size: 40pt; }
+
+  /* ilustração menor e centralizada, sem estourar a largura */
+  .homeimg-container { height: auto; max-height: 230px; justify-content: center; align-items: center; overflow: hidden; border-radius: 28px; }
+  .homeimg-container img { width: 100%; max-width: 420px; height: auto; max-height: 230px; object-fit: contain; }
+
+  .homebuttons-container { flex-wrap: wrap; gap: 10px; }
+  .homebuttons-container .btn-home,
+  .homebuttons-container .btn-home2 { flex: 1 1 100%; text-align: center; font-size: var(--fs-md, 11pt); padding: 14px 24px; }
+
+  .hc-resumo { padding: 28px 16px 24px; }
+}
+
+/* =====================================================================
+   POP-UPS em tela cheia no celular
+   ===================================================================== */
+@media (max-width: 560px) {
+  /* botão de tema não fica por cima de pop-ups */
+  body:has(.pubmodal-overlay, .pubform-overlay, .dlg-overlay) .tema-botao { display: none; }
+  .pubmodal-overlay { padding: 0; background: rgba(0, 0, 0, 0.55); }
+  .pubmodal-wrap { width: 100%; min-height: 100dvh; margin: 0; }
+  .pubmodal-card { border-radius: 0; min-height: 0; }
+
+  .pubmodal-descricao { border-radius: 0; max-height: none; }
+}
+
+/* =====================================================================
+   HERO (página inicial pública)
+   ===================================================================== */
+@media (max-width: 768px) {
+  .heroText-p { padding: 0 12px; white-space: nowrap; text-align: center; }
+  .heroText-p::before { border-radius: 50%; }
+  .n { font-size: 27vw; letter-spacing: -0.02em; }
+  .otice { font-size: 13.5vw; letter-spacing: -0.04em; }
+  .ponto { font-size: 27vw; }
+  .Conhecerbot { font-size: var(--fs-md, 11pt); }
+}
+
+/* =====================================================================
+   "Calendário" no menu "Mais": sem marcador, alinhado com os demais
+   ===================================================================== */
+@media (max-width: 768px) {
+  .folha-lista a.sem-marcador { padding-left: 38px; }
+}
+
+/* =====================================================================
+   BOTÃO "+" (publicar): flutua acima da barra inferior, menor, sem cobrir conteúdo
+   ===================================================================== */
+@media (max-width: 768px) {
+  body .addmenu-container {
+    top: auto;
+    right: 16px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    z-index: 800;
+  }
+  body .addmenu-btn { width: 48px; height: 48px; font-size: 22pt; }
+}
+
+/* =====================================================================
+   CARDS NO CELULAR: 2 colunas compactas (categoria, calendário, resumo)
+   ===================================================================== */
+@media (max-width: 768px) {
+  .categoria-main { padding-top: 84px; padding-inline: 12px; padding-bottom: 24px; }
+  .painel-pubs { padding: 18px 14px 20px; border-radius: 28px; }
+  .hc-resumo { padding: 28px 12px 24px; }
+  .painel-titulo { font-size: 22pt; }
+  .painel-cabecalho-lado { width: 100%; }
+
+  body :is(.painel-grade, .calendario-painel .categoria-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  body .categoria-card { border-radius: 24px; }
+  body .categoria-card:hover { transform: none; } /* no toque não existe "passar o mouse" */
+  body .categoria-card-img { aspect-ratio: 4 / 3; }
+  body .categoria-card-info { padding: 10px 12px 14px; gap: 6px; }
+  body .data-img img { height: 8px; }
+  body .categoria-card-data { font-size: 7pt; }
+  body .categoria-card-titulo {
+    font-size: 10.5pt;
+    line-height: 1.2;
+    margin-top: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+  body .categoria-card-categoria { margin-bottom: 4px; font-size: 8pt; }
+  body .categoria-card-btn { align-self: stretch; min-height: 32px; padding: 0 10px; font-size: 9pt; }
+  body .categoria-card .card-acoes { top: 8px; right: 8px; gap: 6px; }
+  body .categoria-card .card-acoes button { width: 30px; height: 30px; }
+
+  /* calendário */
+  .calendario-painel-topo { flex-direction: column; align-items: stretch; }
+}
+@media (max-width: 340px) {
+  body :is(.painel-grade, .calendario-painel .categoria-grid) { grid-template-columns: 1fr; }
+}
+
+/* =====================================================================
+   VISUALIZAÇÃO DA PUBLICAÇÃO NO CELULAR: imagem em cima, texto abaixo, nada cortado
+   ===================================================================== */
+@media (max-width: 560px) {
+  .pubmodal-overlay { align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .pubmodal-wrap { flex-direction: column; gap: 0; width: 100%; max-width: 100%; max-height: none; overflow: visible; }
+  .pubmodal-card { width: 100%; max-height: none; overflow: visible; border-radius: 0 0 28px 28px; padding-bottom: 20px; }
+  .pubmodal-descricao { flex: none; width: 100%; box-sizing: border-box; border-radius: 28px 28px 0 0; margin-top: -2px; max-height: none; overflow: visible; }
+  .pubmodal-descricao-scroll { position: static; overflow: visible; padding: 22px 18px calc(28px + env(safe-area-inset-bottom)); }
+  .pubmodal-header h2 { font-size: 15pt; overflow-wrap: anywhere; }
+}

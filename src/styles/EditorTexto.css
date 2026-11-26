@@ -1,0 +1,143 @@
+/* ===== Editor de texto das descrições ===== */
+.editor {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "inter", sans-serif;
+}
+.editor.desabilitado { opacity: 0.6; }
+
+/* ---- barra de ferramentas ---- */
+.editor-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 2px;
+  padding: 6px;
+  border-radius: 18px;
+  background: rgba(51, 51, 51, 0.06);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.editor-grupo { display: flex; gap: 2px; }
+.editor-sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 5px;
+  background: rgba(51, 51, 51, 0.18);
+}
+.editor-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 11px;
+  color: #333333;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+.editor-btn:hover:not(:disabled) { background: rgba(51, 51, 51, 0.1); }
+.editor-btn:active:not(:disabled) { transform: scale(0.92); }
+.editor-btn.ativo { color: #f5f4ee; background: #333333; }
+.editor-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.editor-btn:focus-visible { outline: 2px solid #333333; outline-offset: 1px; }
+
+/* ---- campo do link ---- */
+.editor-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px #333333, 0 6px 16px rgba(0, 0, 0, 0.08);
+  animation: editor-entra 0.18s ease;
+}
+.editor-link input {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 10px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  color: #333333;
+  background: rgba(51, 51, 51, 0.05);
+  outline: none;
+}
+.editor-link input[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px #b92a2a; }
+.editor-link-ok {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: #f5f4ee;
+  background: #333333;
+  cursor: pointer;
+}
+.editor-link-ok:hover { background: #555555; }
+.editor-link-remover {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  color: #333333;
+  background: rgba(51, 51, 51, 0.08);
+  cursor: pointer;
+}
+.editor-link-remover:hover { color: #fff; background: #b92a2a; }
+.editor-link-erro { width: 100%; font-size: var(--fs-xs); font-weight: 600; color: #b92a2a; }
+
+/* ---- área de escrita ---- */
+.editor-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(51, 51, 51, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: text;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 51, 51, 0.25) transparent;
+}
+.editor-area:focus-within {
+  border-color: #333333;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(51, 51, 51, 0.08);
+}
+.editor-area .tiptap { outline: none; min-height: 100%; }
+.editor-area .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: rgba(51, 51, 51, 0.4);
+}
+
+.editor-contador {
+  align-self: flex-end;
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #969696;
+}
+.editor-contador.no-limite { color: #b92a2a; }
+
+@keyframes editor-entra {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .editor-link { animation: none; }
+}

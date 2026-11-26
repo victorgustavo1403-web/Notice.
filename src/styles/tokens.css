@@ -1,0 +1,98 @@
+/* =====================================================================
+   PADRÕES DO SISTEMA (tokens)
+   Escala tipográfica, cores e botões usados por pop-ups, formulários e
+   listas. Os telões da página inicial (títulos grandes) ficam de fora.
+   ===================================================================== */
+:root {
+  --fonte: "inter", system-ui, sans-serif;
+
+  /* escala de fontes */
+  --fs-xs: 9pt;   /* legendas, datas, apoio */
+  --fs-sm: 10pt;  /* texto de formulário e botões */
+  --fs-md: 11pt;  /* texto corrido */
+  --fs-lg: 14pt;  /* títulos de pop-up */
+  --fs-xl: 22pt;  /* títulos de página */
+
+  /* cores */
+  --cor-texto: #333333;
+  --cor-texto-suave: #777777;
+  --cor-borda: rgba(51, 51, 51, 0.14);
+  --cor-superficie: #ffffff;
+  --cor-perigo: #b3261e;
+  --cor-perigo-fundo: #fdecea;
+  --cor-foco: rgba(51, 51, 51, 0.28);
+
+  --raio-campo: 14px;
+  --raio-cartao: 28px;
+}
+
+/* anel de foco único para teclado */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+/* ---- botões padrão ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 60px;
+  border: 1.5px solid transparent;
+  font-family: var(--fonte);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, opacity 0.2s;
+}
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn-primario { background: #333333; color: #fff; }
+.btn-primario:hover:not(:disabled) { background: #000; }
+.btn-secundario { background: #fff; color: var(--cor-texto); border-color: var(--cor-borda); }
+.btn-secundario:hover:not(:disabled) { background: #f4f4f2; border-color: rgba(51, 51, 51, 0.35); }
+.btn-perigo { background: var(--cor-perigo); color: #fff; }
+.btn-perigo:hover:not(:disabled) { background: #8f1d17; }
+
+/* ---- campos de formulário padrão ---- */
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo > label, .campo-rotulo {
+  font-family: var(--fonte);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--cor-texto);
+}
+.campo-entrada {
+  width: 100%;
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: var(--raio-campo);
+  border: 1.5px solid var(--cor-borda);
+  background: #fff;
+  font-family: var(--fonte);
+  font-size: var(--fs-sm);
+  color: var(--cor-texto);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.campo-entrada::placeholder { color: #a8a8a8; }
+.campo-entrada:hover { border-color: rgba(51, 51, 51, 0.32); }
+.campo-entrada:focus { outline: none; border-color: #333; box-shadow: 0 0 0 4px rgba(51, 51, 51, 0.08); }
+.campo-entrada:disabled { background: #f3f3f1; color: #888; cursor: not-allowed; }
+.campo.invalido .campo-entrada { border-color: var(--cor-perigo); box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.08); }
+.campo-erro { margin: 0; font-size: var(--fs-xs); color: var(--cor-perigo); }
+.campo-ajuda { margin: 0; font-size: var(--fs-xs); color: var(--cor-texto-suave); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* bolinhas coloridas decorativas (login e páginas iniciais) */
+.bolinhas {
+  width: 50px;
+  z-index: 2;
+}

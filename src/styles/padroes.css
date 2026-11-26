@@ -1,0 +1,166 @@
+/* =====================================================================
+   PADRÕES DE INTERFACE — botões, hovers e cards
+   Este arquivo é carregado por último e unifica o que as telas definiam
+   cada uma do seu jeito. Para mudar o visual de TODOS os botões/cards,
+   mexa aqui.
+
+   BOTÕES (formato sempre pílula, fonte Inter 800)
+     • Sólido escuro  → ação principal.  Hover: vira contorno.
+     • Contorno       → ação secundária (Cancelar, Voltar). Hover: preenche.
+     • Perigo         → excluir/remover.  Hover: escurece.
+     • Ícone redondo  → fechar, setas, editar. Hover: preenche + cresce um pouco.
+     Tamanhos: padrão (46px: telas e pop-ups), compacto (36px: barra superior,
+     card, calendário) e destaque (página inicial pública).
+
+   HOVER POR CONTEXTO
+     • Card de publicação  → sobe 6px e ganha sombra maior.
+     • Linha de lista      → sobe 2px.
+     • Link de menu        → sobe 2px.
+     • Campo de texto      → borda mais escura.
+   ===================================================================== */
+:root {
+  --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --botao-escuro: #333333;
+  --botao-claro: #f5f4ee;
+  --botao-altura: 46px;
+  --botao-altura-compacto: 36px;
+  --transicao-botao: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s var(--ease-ui), opacity 0.2s ease;
+}
+
+/* ---------- 1) BASE COMUM (forma, fonte, transição) ---------- */
+body :is(.btn, .auth-submit, .pubform-btn, .calendario-nova, .pubmodal-lida, .agenda-tentar,
+         .categoria-card-btn, .sair, .login, .calendario-hoje-btn, .usr-voltar, .auth-voltar,
+         .Conhecerbot, .homebuttons-container .btn-home, .homebuttons-container .btn-home2) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  border-radius: 60px;
+  font-family: var(--fonte, "inter", sans-serif);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transicao-botao);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- 2) TAMANHOS ---------- */
+/* padrão: telas e pop-ups */
+body :is(.btn, .auth-submit, .pubform-btn, .calendario-nova, .pubmodal-lida, .agenda-tentar) {
+  min-height: var(--botao-altura);
+  padding: 0 26px;
+  font-size: var(--fs-sm, 10pt);
+}
+/* compacto: barra superior, card, calendário */
+body :is(.categoria-card-btn, .sair, .login, .calendario-hoje-btn, .usr-voltar, .auth-voltar) {
+  min-height: var(--botao-altura-compacto);
+  padding: 0 18px;
+  font-size: var(--fs-sm, 10pt);
+}
+/* destaque: página inicial pública */
+body :is(.Conhecerbot, .homebuttons-container .btn-home, .homebuttons-container .btn-home2) {
+  min-height: 52px;
+  padding: 0 34px;
+  font-size: 13pt;
+  font-weight: 900;
+}
+body .pubform-btn { padding: 0 18px; flex: 1; }
+body .auth-submit { width: 100%; }
+
+/* ---------- 3) VARIANTES ---------- */
+/* sólido escuro (principal) */
+body :is(.btn-primario, .auth-submit, .pubform-btn-publicar, .calendario-nova, .pubmodal-lida, .agenda-tentar,
+         .categoria-card-btn, .sair, .login, .usr-voltar, .Conhecerbot, .homebuttons-container .btn-home) {
+  border: none;
+  background: var(--botao-escuro);
+  color: var(--botao-claro);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+}
+/* contorno (secundário) */
+body :is(.btn-secundario, .pubform-btn-cancelar, .calendario-hoje-btn, .auth-voltar, .homebuttons-container .btn-home2) {
+  border: none;
+  background: #fffdfd;
+  color: var(--botao-escuro);
+  box-shadow: inset 0 0 0 2px var(--botao-escuro);
+  filter: none;
+}
+/* perigo */
+body .btn-perigo { border: none; background: var(--cor-perigo, #b3261e); color: #fff; box-shadow: none; }
+
+/* ---------- 4) HOVER / PRESSIONADO ---------- */
+/* sólido → vira contorno */
+body :is(.btn-primario, .auth-submit, .pubform-btn-publicar, .calendario-nova, .pubmodal-lida, .agenda-tentar,
+         .categoria-card-btn, .sair, .login, .usr-voltar, .Conhecerbot, .homebuttons-container .btn-home):hover:not(:disabled) {
+  background: transparent;
+  color: var(--botao-escuro);
+  box-shadow: inset 0 0 0 2px var(--botao-escuro);
+  transform: translateY(-1px);
+}
+/* contorno → preenche */
+body :is(.btn-secundario, .pubform-btn-cancelar, .calendario-hoje-btn, .auth-voltar, .homebuttons-container .btn-home2):hover:not(:disabled) {
+  background: var(--botao-escuro);
+  color: var(--botao-claro);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+  transform: translateY(-1px);
+}
+body .btn-perigo:hover:not(:disabled) { background: #8f1d17; transform: translateY(-1px); }
+body :is(.btn, .auth-submit, .pubform-btn, .calendario-nova, .pubmodal-lida, .categoria-card-btn, .sair, .login,
+         .calendario-hoje-btn, .usr-voltar, .auth-voltar, .Conhecerbot, .homebuttons-container a):active:not(:disabled) {
+  transform: scale(0.98);
+}
+body :is(.btn, .pubform-btn, .auth-submit, .pubmodal-lida):disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ---------- 5) BOTÕES DE ÍCONE REDONDOS ---------- */
+body :is(.calendario-nav-btn, .pubform-fechar, .pubmodal-fechar, .usr-icone, .sino-botao, .nav-menu-botao,
+         .categoria-card .card-acoes button, .perfil-foto-botao) {
+  border-radius: 50%;
+  transition: var(--transicao-botao);
+}
+body :is(.calendario-nav-btn, .pubform-fechar, .pubmodal-fechar, .usr-icone, .sino-botao, .nav-menu-botao,
+         .categoria-card .card-acoes button):hover:not(:disabled) {
+  background: var(--botao-escuro);
+  color: var(--botao-claro);
+  transform: scale(1.08);
+}
+body :is(.usr-icone.perigo, .categoria-card .card-acoes button:last-child):hover:not(:disabled) {
+  background: var(--cor-perigo, #b3261e);
+  color: #fff;
+}
+body .perfil-foto-botao:hover:not(:disabled) { background: #000; transform: scale(1.08); }
+
+/* ---------- 6) CARDS DE PUBLICAÇÃO (categoria, calendário, resumo semanal) ---------- */
+body .categoria-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(51, 51, 51, 0.06);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform 0.35s var(--ease-ui), box-shadow 0.35s var(--ease-ui);
+}
+body .categoria-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.14), 0 6px 14px rgba(0, 0, 0, 0.07);
+}
+/* grade única: as mesmas colunas e proporção em todo lugar */
+body :is(.painel-grade, .calendario-painel .categoria-grid) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: clamp(18px, 2.2vw, 30px);
+  width: 100%;
+}
+body :is(.painel-grade, .calendario-painel .categoria-grid) .categoria-card-info { flex: 1; }
+body :is(.painel-grade, .calendario-painel .categoria-grid) .categoria-card-btn { margin-top: auto; }
+/* dá folga para o card subir sem cortar */
+body .calendario-painel .categoria-grid { padding-top: 6px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 348px)); }
+
+/* ---------- 7) LINHAS E LINKS ---------- */
+body .usr-item:hover { transform: translateY(-2px); }
+
+/* quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  body .categoria-card:hover, body :is(.btn, .categoria-card-btn):hover { transform: none; }
+}

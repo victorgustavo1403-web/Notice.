@@ -1,0 +1,130 @@
+/* Mural da TV do corredor.
+   Layout pensado para 16:9: --u vale 1% da menor medida equivalente, então todo o
+   conteúdo cresce junto em qualquer tamanho de TV.
+   Cores vêm das variáveis abaixo: claro por padrão, escuro quando html[data-tema="escuro"]. */
+.tv-raiz {
+  --u: min(1vw, 1.7778vh);
+  --tv-fundo: #f3f2ec;
+  --tv-texto: #1a1a18;
+  --tv-suave: rgba(26, 26, 24, 0.62);
+  --tv-tenue: rgba(26, 26, 24, 0.45);
+  --tv-linha: rgba(26, 26, 24, 0.14);
+  --tv-superficie: #ffffff;
+  --tv-chip: rgba(26, 26, 24, 0.07);
+  --tv-sombra: 0 calc(var(--u) * 1.6) calc(var(--u) * 4) rgba(0, 0, 0, 0.14);
+  --tv-brilho-1: rgba(0, 100, 175, 0.16);
+  --tv-brilho-2: rgba(253, 133, 82, 0.16);
+}
+html[data-tema="escuro"] .tv-raiz {
+  --tv-fundo: #0d0d0c;
+  --tv-texto: #f5f4ee;
+  --tv-suave: rgba(245, 244, 238, 0.76);
+  --tv-tenue: rgba(245, 244, 238, 0.5);
+  --tv-linha: rgba(245, 244, 238, 0.18);
+  --tv-superficie: #1b1b19;
+  --tv-chip: rgba(245, 244, 238, 0.1);
+  --tv-sombra: 0 calc(var(--u) * 2) calc(var(--u) * 5) rgba(0, 0, 0, 0.5);
+  --tv-brilho-1: rgba(0, 100, 175, 0.28);
+  --tv-brilho-2: rgba(253, 133, 82, 0.2);
+}
+
+body.tv-ativa { margin: 0; overflow: hidden; background: #f3f2ec; }
+html[data-tema="escuro"] body.tv-ativa { background: #0d0d0c; }
+
+/* o botão de tema sai do caminho da barra de progresso e só aparece quando
+   alguém mexe no mouse (numa TV parada, a tela fica limpa) */
+body.tv-ativa .tema-botao { left: auto; right: 14px; bottom: auto; top: 14px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+body.tv-ativa.tv-mouse .tema-botao { opacity: 1; pointer-events: auto; }
+
+.tv-raiz {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  padding: calc(var(--u) * 2.6) calc(var(--u) * 3.6) calc(var(--u) * 2.2);
+  gap: calc(var(--u) * 2.2);
+  background:
+    radial-gradient(60% 70% at 8% 0%, var(--tv-brilho-1), transparent 70%),
+    radial-gradient(50% 60% at 100% 100%, var(--tv-brilho-2), transparent 70%),
+    var(--tv-fundo);
+  color: var(--tv-texto);
+  font-family: "inter", system-ui, sans-serif;
+  user-select: none;
+}
+.tv-raiz * { box-sizing: border-box; margin: 0; }
+.tv-sem-cursor, .tv-sem-cursor * { cursor: none; }
+
+/* ---------- topo ---------- */
+.tv-topo { display: flex; align-items: center; gap: calc(var(--u) * 2); flex: none; }
+.tv-topo .tv-logo { height: calc(var(--u) * 3.6); flex: none; }
+.tv-escola { flex: 1; font-size: calc(var(--u) * 1.15); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tv-tenue); padding-left: calc(var(--u) * 2); border-left: 2px solid var(--tv-linha); }
+.tv-relogio { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.05; }
+.tv-relogio strong { font-size: calc(var(--u) * 3.6); font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.tv-relogio span { font-size: calc(var(--u) * 1.2); font-weight: 600; color: var(--tv-suave); margin-top: calc(var(--u) * 0.3); }
+
+/* ---------- palco ---------- */
+.tv-palco { flex: 1; min-height: 0; display: flex; }
+.tv-slide {
+  flex: 1; min-width: 0; min-height: 0;
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: calc(var(--u) * 3.4);
+  animation: tv-entrar 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes tv-entrar { from { opacity: 0; transform: translateY(calc(var(--u) * 1.6)); } to { opacity: 1; transform: none; } }
+
+.tv-midia {
+  position: relative; min-height: 0; overflow: hidden;
+  border-radius: calc(var(--u) * 2.4);
+  background: var(--tv-superficie);
+  box-shadow: var(--tv-sombra);
+}
+.tv-midia > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tv-midia-padrao { position: absolute; inset: 0; display: grid; place-items: center; background: color-mix(in srgb, var(--cor) 55%, var(--tv-superficie)); }
+.tv-midia-padrao img { width: 38%; height: auto; }
+
+.tv-texto { display: flex; flex-direction: column; justify-content: center; gap: calc(var(--u) * 2); min-width: 0; min-height: 0; }
+.tv-metas { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--u) * 1.2); }
+.tv-categoria, .tv-tag {
+  display: inline-flex; align-items: center; gap: calc(var(--u) * 0.8);
+  padding: calc(var(--u) * 0.7) calc(var(--u) * 1.6);
+  border-radius: 999px;
+  font-size: calc(var(--u) * 1.35); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tv-categoria { background: var(--tv-chip); color: var(--tv-texto); }
+.tv-categoria i { width: calc(var(--u) * 1.1); height: calc(var(--u) * 1.1); border-radius: 50%; background: var(--cor); }
+.tv-tag { background: var(--tv-texto); color: var(--tv-fundo); }
+.tv-tag-evento { background: var(--cor); color: #ffffff; }
+.tv-tag-recente { background: transparent; color: var(--tv-suave); padding-left: 0; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: calc(var(--u) * 1.4); }
+
+.tv-titulo {
+  font-size: calc(var(--u) * 5.6); font-weight: 800; letter-spacing: -0.045em; line-height: 1.02;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  text-wrap: balance; overflow-wrap: anywhere;
+}
+.tv-resumo {
+  font-size: calc(var(--u) * 2.1); font-weight: 500; line-height: 1.4; color: var(--tv-suave);
+  display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere;
+}
+
+/* ---------- avisos de estado (carregando, vazio, sem servidor) ---------- */
+.tv-vazio { margin: auto; max-width: calc(var(--u) * 70); text-align: center; display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.4); font-size: calc(var(--u) * 2); color: var(--tv-suave); }
+.tv-vazio img { height: calc(var(--u) * 2); width: auto; }
+.tv-vazio h1 { font-size: calc(var(--u) * 4.6); font-weight: 800; letter-spacing: -0.04em; color: var(--tv-texto); }
+.tv-vazio code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: calc(var(--u) * 1.6); padding: calc(var(--u) * 0.4) calc(var(--u) * 1); border-radius: calc(var(--u) * 0.6); background: var(--tv-chip); }
+
+/* ---------- base: progresso ---------- */
+.tv-base { display: flex; align-items: center; gap: calc(var(--u) * 1.6); flex: none; min-height: calc(var(--u) * 1.6); }
+.tv-pontos { flex: 1; display: flex; gap: calc(var(--u) * 0.7); }
+.tv-ponto { position: relative; flex: 1; max-width: calc(var(--u) * 12); height: calc(var(--u) * 0.5); border-radius: 99px; background: var(--tv-linha); overflow: hidden; }
+.tv-ponto.feito { background: var(--tv-tenue); }
+.tv-ponto b { position: absolute; inset: 0; background: var(--tv-texto); transform-origin: left; animation-name: tv-progresso; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes tv-progresso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.tv-contador { font-size: calc(var(--u) * 1.2); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--tv-tenue); }
+.tv-estado { font-size: calc(var(--u) * 1.1); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: calc(var(--u) * 0.4) calc(var(--u) * 1.2); border-radius: 99px; background: var(--tv-chip); color: var(--tv-texto); }
+.tv-offline { background: #b3261e; color: #ffffff; }
+
+@media (prefers-reduced-motion: reduce) { .tv-slide { animation: none; } }
+
+/* Tela em pé ou estreita (prévia no celular): empilha imagem e texto */
+@media (max-aspect-ratio: 1/1) {
+  .tv-raiz { --u: 1.9vw; }
+  .tv-slide { grid-template-columns: 1fr; grid-template-rows: 0.8fr 1fr; }
+  .tv-escola { display: none; }
+}

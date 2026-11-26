@@ -1,0 +1,133 @@
+/* =====================================================================
+   PERFIL: foto, dados da conta (somente leitura) e e-mail de notificações
+   ===================================================================== */
+.perfil-pagina {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--fonte, "inter", sans-serif);
+  color: #333333;
+  background: linear-gradient(135deg, #b9aeae 0%, #f5f3ee 20%, #ffffff 50%, #f5f4ee 80%, #b9aeae 100%);
+  background-attachment: fixed;
+}
+.perfil-conteudo {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(96px, 14vh, 130px) clamp(16px, 5vw, 48px) 80px;
+}
+.perfil-bolinhas { display: block; height: 14px; width: auto; margin-bottom: 12px; }
+.perfil-titulo {
+  margin: 0;
+  font-size: clamp(24pt, 4vw, 34pt);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.perfil-subtitulo { margin: 8px 0 0; max-width: 56ch; font-size: var(--fs-md, 11pt); line-height: 1.5; color: #777777; }
+.perfil-cabecalho { margin-bottom: clamp(20px, 4vh, 36px); }
+
+.perfil-grade {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 28px);
+  align-items: start;
+}
+.perfil-coluna { display: flex; flex-direction: column; gap: clamp(16px, 2.4vw, 28px); min-width: 0; }
+
+/* cartão de vidro (mesmo visual dos painéis do sistema) */
+.perfil-cartao {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 32px);
+  border-radius: 36px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0.66) 100%);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  backdrop-filter: blur(8px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 12px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.perfil-secao { margin: 0 0 18px; font-size: var(--fs-lg, 14pt); font-weight: 800; letter-spacing: -0.03em; }
+
+/* ---- identidade ---- */
+.perfil-identidade { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+.perfil-foto { position: relative; margin-bottom: 4px; }
+.perfil-foto .perfil-avatar { box-shadow: 0 0 0 4px #ffffff, 0 14px 30px rgba(0, 0, 0, 0.2); }
+.perfil-foto .avatar b { font-size: 3.2rem; }
+.perfil-foto-botao {
+  position: absolute;
+  right: 2px;
+  bottom: 6px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: #333333;
+  color: #f5f4ee;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.perfil-foto-botao:hover:not(:disabled) { transform: scale(1.1); }
+.perfil-foto-botao:disabled { opacity: 0.6; cursor: progress; }
+.perfil-foto-carregando {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(51, 51, 51, 0.55);
+  color: #ffffff;
+  font-size: var(--fs-xs, 9pt);
+  font-weight: 700;
+}
+.perfil-input-arquivo { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.perfil-nome { margin: 4px 0 0; font-size: var(--fs-lg, 14pt); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; overflow-wrap: anywhere; }
+.perfil-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 60px;
+  font-size: var(--fs-xs, 9pt);
+  font-weight: 800;
+  color: #333333;
+  background: color-mix(in srgb, var(--cor) 14%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--cor) 35%, transparent);
+}
+.perfil-selo i { width: 9px; height: 9px; border-radius: 50%; background: var(--cor); }
+.perfil-foto-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+.perfil-foto-acoes .btn { display: inline-flex; align-items: center; gap: 7px; }
+.perfil-dica { margin: 4px 0 0; font-size: var(--fs-xs, 9pt); line-height: 1.5; color: #888888; max-width: 30ch; }
+
+/* ---- dados ---- */
+.perfil-linha-dupla { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr); gap: 16px; }
+.perfil-bloqueado { position: relative; }
+.perfil-bloqueado .campo-entrada { padding-right: 38px; background: rgba(51, 51, 51, 0.045); color: #555555; cursor: default; }
+.perfil-bloqueado .campo-entrada:focus { border-color: var(--cor-borda, rgba(51, 51, 51, 0.2)); box-shadow: none; }
+.perfil-bloqueado svg { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #999999; pointer-events: none; }
+.perfil-aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 16px 0 0;
+  font-size: var(--fs-xs, 9pt);
+  line-height: 1.5;
+  color: #777777;
+}
+.perfil-aviso svg { flex-shrink: 0; margin-top: 2px; }
+.perfil-aviso-solto { margin: 0; }
+
+/* ---- e-mail ---- */
+.perfil-email { position: relative; }
+.perfil-email svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999999; pointer-events: none; }
+.perfil-email .campo-entrada { padding-left: 42px; }
+.perfil-acoes { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+.perfil-ok { font-size: var(--fs-xs, 9pt); font-weight: 700; color: #4f7a00; }
+
+@media (max-width: 860px) {
+  .perfil-grade { grid-template-columns: 1fr; }
+  .perfil-linha-dupla { grid-template-columns: 1fr; }
+  .perfil-cartao { border-radius: 28px; }
+}

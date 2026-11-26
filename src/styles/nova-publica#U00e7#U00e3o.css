@@ -1,0 +1,332 @@
+
+@font-face {
+  font-family: "inter";
+  src: url("../src/assets/fonts/Inter-VariableFont_opsz\\,wght.ttf");
+}
+
+
+/* =========================
+   NOVA PUBLICAÇÃO
+========================= */
+
+.pub-form {
+  position: relative;
+  z-index: 1;
+
+  width: min(700px, 90%);
+  margin: 40px auto;
+  padding: clamp(28px, 5vw, 44px);
+
+  border-radius: 28px;
+  isolation: isolate;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(236, 236, 236, 0.537) 0%,
+    rgb(255, 255, 255) 50%,
+    rgba(236, 235, 235, 0) 100%
+  );
+
+  backdrop-filter: blur(1px) saturate(160%);
+  -webkit-backdrop-filter: saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.418);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.2),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================
+   LABELS
+========================= */
+
+.pub-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: "inter";
+  font-size: 10pt;
+  font-weight: 600;
+
+  color: #777777;
+}
+
+
+/* =========================
+   INPUT / SELECT / TEXTAREA
+========================= */
+
+.pub-input {
+  position: relative;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  font-family: "inter";
+  font-size: 10pt;
+  font-weight: 500;
+
+  padding: 14px 16px;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  color: #333333;
+
+  outline: none;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.152);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+
+/* =========================
+   PLACEHOLDER
+========================= */
+
+.pub-input::placeholder {
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 400;
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+.pub-input:hover {
+  border-color: rgba(51, 51, 51, 0.25);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+}
+
+
+/* =========================
+   FOCUS
+========================= */
+
+.pub-input:focus {
+  
+
+  background: rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(51, 51, 51, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   SELECT
+========================= */
+
+.pub-form select {
+  color-scheme: light;
+  cursor: pointer;
+
+  appearance: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23333333' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+
+  padding-right: 40px;
+}
+
+
+/* =========================
+   SELECT OPTIONS
+========================= */
+
+.pub-form select option {
+  font-family: "inter";
+  font-size: 10pt;
+  font-weight: 500;
+
+  color: #333333;
+  background-color: #fffcfc;
+
+  padding: 10px;
+}
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+.pub-textarea {
+  min-height: 160px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   BOTÃO PUBLICAR
+========================= */
+
+.pub-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  width: 100%;
+
+  margin-top: 6px;
+
+  font-family: "inter";
+  font-size: 10.5pt;
+  font-weight: 900;
+
+  letter-spacing: 0.3px;
+
+  color: #f5f4ee;
+  background-color: #333333;
+
+  border: none;
+
+  padding: 15px;
+
+  border-radius: 80px;
+
+  cursor: pointer;
+
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+
+  transition:
+    transform 0.15s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================
+   HOVER BOTÃO
+========================= */
+
+.pub-button:hover {
+  background-color: transparent;
+
+  color: #333333;
+
+  box-shadow:
+    inset 0 0 0 2px #333333;
+
+  transform: scale(1.01);
+}
+
+
+/* =========================
+   ACTIVE
+========================= */
+
+.pub-button:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   DISABLED
+========================= */
+
+.pub-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================
+   MENSAGEM
+========================= */
+
+.categoria-status {
+  margin: 0;
+
+  text-align: center;
+
+  font-family: "inter";
+  font-size: 9pt;
+  font-weight: 600;
+
+  color: #333333;
+
+  padding: 12px 16px;
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.5);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 600px) {
+
+  .pub-form {
+    width: 92%;
+    margin: 30px auto;
+
+    padding: 28px 22px;
+
+    border-radius: 24px;
+  }
+
+  .pub-input {
+    padding: 13px 14px;
+  }
+
+  .pub-textarea {
+    min-height: 140px;
+  }
+
+}

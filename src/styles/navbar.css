@@ -1,0 +1,529 @@
+.nav-bar-h {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 clamp(24px, 6vw, 80px);
+  box-sizing: border-box;
+  z-index: 1000;
+  top: 0;
+}
+
+.logo-h {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* logo completa ("Notice.") */
+.logo-h .logo-tema {
+  height: 34px;
+  transition: transform 0.25s ease;
+}
+.logo-h:hover .logo-tema { transform: scale(1.04); }
+
+/* Grupo centralizado: barra principal + barra das áreas restritas, lado a lado */
+.links-grupo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.link-wrapper-h {
+  position: relative;
+  border-radius: 60px;
+  isolation: isolate;
+  width: fit-content;
+}
+
+.link-distortion-h {
+  position: absolute;
+  inset: 0;
+  border-radius: 60px;
+  backdrop-filter: url(#liquid-glass) blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 0;
+}
+
+.link-h {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: clamp(10px, 2.5vw, 26px);
+  padding: 10px clamp(16px, 4vw, 32px);
+  border-radius: 60px;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+
+  /* background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
+  backdrop-filter: blur(1px) saturate(300%);
+  -webkit-backdrop-filter: blur(1px) saturate(1600%); */
+
+  border: 1px solid rgba(255, 255, 255, 0.418);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.2),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+
+  /* overflow: hidden; */
+  white-space: nowrap;
+}
+
+.link-h a {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-h::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  /* background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0)
+  ); */
+  border-radius: 60px 60px 0 0;
+  pointer-events: none;
+}
+
+.link-h::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 60%;
+  height: 200%;
+  /* background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 45%,
+    rgba(255, 255, 255, 0) 60%
+  ); */
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.link-h a {
+  color: #333333;
+  font-size: clamp(8pt, 11pt, 12pt);
+  cursor: pointer;
+  margin: 0;
+  font-family: "inter";
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.link-h a:hover {
+  transform: translateY(-2px);
+  transition: 0.3s;
+ 
+}
+.link-h a:hover .link-bolinha {
+  opacity: 1;
+  transition: 0.3s;
+   transform: translateY(-2px);
+}
+.container-icone-perfilcad {
+  position: relative;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
+  backdrop-filter: blur(1px) saturate(160%);
+  -webkit-backdrop-filter: blur(1px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.418);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.2),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 20px;
+  transition: 0.3s;
+}
+
+.link-bolinha{
+
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  top:45px;
+  z-index: 100000;
+  background-color: #333333;
+  position: absolute;
+  opacity: 0;
+  transition: 0.3s;
+
+
+
+}
+
+.container-icone-perfilcad:hover {
+  transform: scale(1.08);
+  transition: 0.3s;
+}
+
+.icone-perfilcad {
+  width: 30px;
+}
+
+.sair {
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "inter";
+  font-size: clamp(8pt, 2vw, 12pt);
+  font-weight: bolder;
+  padding: 8px 18px;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  background-color: #333333;
+  overflow: hidden;
+  white-space: nowrap;
+  border: none;
+  border-radius: 80px;
+  transition: 0.3s;
+}
+
+.sair:hover {
+  background-color: #55555500;
+  transition: 0.3s;
+  box-shadow: inset 0 0 0 2px #333333;
+  color: #333333;
+  transform: scale(1.02);
+}
+
+.icone-perfilcad {
+  width: 30px;
+}
+.sino-botao {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s;
+}
+.sino-botao:hover { transform: scale(1.06); }
+
+.sino-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #d33;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.sino-caixa {
+  position: fixed;
+  z-index: 1000;
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.sino-titulo {
+  margin: 6px 12px 8px;
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.sino-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.sino-item:hover { background: #f5f5f5; }
+
+.sino-item-titulo {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.sino-item-info {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.sino-vazio {
+  margin: 0;
+  padding: 18px 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+}
+/* Com a barra das áreas ao lado, aperta o espaçamento em telas menores */
+@media (max-width: 1500px) {
+  .link-h {
+    gap: 12px;
+    padding: 10px 18px;
+  }
+  .link-h a {
+    font-size: 8pt;
+  }
+}
+@media (max-width: 1180px) {
+  .nav-bar-h {
+    padding: 0 16px;
+  }
+  .links-grupo {
+    gap: 8px;
+  }
+  .link-h {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+}
+
+/* O ícone de cadastro agora fica no bloco da direita, ao lado do SAIR (não mais solto na barra) */
+.nav-bar-h .container-icone-perfilcad {
+  position: relative;
+  left: auto;
+  top: auto;
+  margin-left: 0;
+}
+.nav-bar-h .container-icone-perfilcad:hover {
+  top: auto;
+  transform: scale(1.08);
+}
+
+/* "Anexos" é só o ícone do calendário */
+.link-h .link-icone img {
+  height: 17px;
+  width: auto;
+  display: block;
+}
+
+/* Notificações: bolinhas da categoria + data, igual aos cards */
+.sino-item-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.sino-item-topo img {
+  height: 10px;
+  width: auto;
+}
+.sino-item-data {
+  font-size: 0.7rem;
+  color: #888;
+}
+
+/* =====================================================================
+   MENU RESPONSIVO: abaixo de 1200px os links viram um menu suspenso
+   ===================================================================== */
+.nav-menu-botao {
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 1200px) {
+  .nav-menu-botao { display: grid; }
+
+  .nav-bar-h .links-grupo {
+    display: none;
+    position: fixed;
+    top: 74px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    padding: 12px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: menu-entra 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-bar-h .links-grupo.aberto { display: flex; }
+
+  .nav-bar-h .link-wrapper-h { width: 100%; box-sizing: border-box; border-radius: 20px; }
+  .nav-bar-h .link-h { width: 100%; box-sizing: border-box; }
+  .nav-bar-h .link-distortion-h { display: none; }
+  .nav-bar-h .link-h {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 20px;
+  }
+  .nav-bar-h .link-h a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: var(--fs-md, 11pt);
+  }
+  .nav-bar-h .link-h a:hover { background: #f1f1ef; transform: none; }
+  .nav-bar-h .link-wrapper-areas { border-top: 1px solid rgba(51, 51, 51, 0.1); padding-top: 6px; border-radius: 0; }
+}
+
+/* super admin tem um ícone a mais na barra: o menu suspenso entra antes (1500px; mural da TV e currículos também ocupam espaço) para nada encostar */
+@media (max-width: 1500px) {
+  .nav-bar-h.nav-super .nav-menu-botao { display: grid; }
+
+  .nav-bar-h.nav-super .links-grupo {
+    display: none;
+    position: fixed;
+    top: 74px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    padding: 12px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: menu-entra 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-bar-h.nav-super .links-grupo.aberto { display: flex; }
+
+  .nav-bar-h.nav-super .link-wrapper-h { width: 100%; box-sizing: border-box; border-radius: 20px; }
+  .nav-bar-h.nav-super .link-h { width: 100%; box-sizing: border-box; }
+  .nav-bar-h.nav-super .link-distortion-h { display: none; }
+  .nav-bar-h.nav-super .link-h {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 20px;
+  }
+  .nav-bar-h.nav-super .link-h a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: var(--fs-md, 11pt);
+  }
+  .nav-bar-h.nav-super .link-h a:hover { background: #f1f1ef; transform: none; }
+  .nav-bar-h.nav-super .link-wrapper-areas { border-top: 1px solid rgba(51, 51, 51, 0.1); padding-top: 6px; border-radius: 0; }
+}
+
+@keyframes menu-entra {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Foto de perfil na barra (leva ao perfil) */
+.nav-perfil {
+  flex-shrink: 0;
+  text-decoration: none;
+  display: block;
+  border-radius: 50%;
+  line-height: 0;
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.nav-perfil:hover { transform: scale(1.08); }
+.nav-perfil:focus-visible { outline: 2px solid #333333; outline-offset: 3px; }
+
+/* ícone de cadastrar usuário: espaço generoso em relação ao avatar e ao SAIR */
+.nav-bar-h .container-icone-perfilcad { margin-right: 18px; }
+
+/* atalho do mural da TV (administradores): só o ícone, para não apertar a barra */
+.nav-bar-h .nav-tv {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: 50%;
+  color: #333333; text-decoration: none;
+  background: #ffffff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.nav-bar-h .nav-tv span { display: none; }
+.nav-bar-h .nav-tv:hover { transform: scale(1.08); }
+.nav-bar-h .nav-tv:focus-visible { outline: 2px solid #333333; outline-offset: 3px; }
+/* abaixo disso o atalho vive na folha "Mais" do celular */
+@media (max-width: 960px) { .nav-bar-h .nav-tv { display: none; } }
+.nav-bar-h .nav-tv.ativo { background: #333333; color: #f5f4ee; }

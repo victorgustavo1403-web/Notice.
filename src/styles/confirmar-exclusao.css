@@ -1,0 +1,88 @@
+.confirmar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.confirmar-modal {
+  width: 100%;
+  max-width: 380px;
+  padding: 28px 24px 22px;
+  border-radius: 24px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.confirmar-icone {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fdecec;
+  color: #d33;
+}
+
+.confirmar-titulo {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.confirmar-texto {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #666;
+}
+
+.confirmar-erro {
+  margin: -8px 0 16px;
+  font-size: 0.85rem;
+  color: #d33;
+}
+
+.confirmar-botoes {
+  display: flex;
+  gap: 10px;
+}
+
+.confirmar-botoes button {
+  flex: 1;
+  padding: 11px 0;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.confirmar-botoes button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.confirmar-cancelar {
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+}
+.confirmar-cancelar:hover:not(:disabled) {
+  background: #f4f4f4;
+}
+
+.confirmar-excluir {
+  border: none;
+  background: #d33;
+  color: #fff;
+}
+.confirmar-excluir:hover:not(:disabled) {
+  background: #b92a2a;
+}

@@ -1,0 +1,567 @@
+/* =====================================================================
+   MODAL "NOVA PUBLICAÇÃO / EDITAR" (NovaPublicacaoModal.jsx) — arquivo único
+   Todo o layout do formulário (.pubform-*) fica AQUI, inclusive o celular.
+   Só ficam fora, por serem compartilhados com o resto do sistema:
+     · padroes.css            → botões (.pubform-btn*, .pubform-fechar) e hover
+     · tema-escuro-ajustes.css → cores dos botões no tema escuro
+   ===================================================================== */
+/* ===== Pop-up de criar / editar publicação =====
+   Mesma linguagem visual do PublicacaoModal e das telas do sistema:
+   fundo desfocado, card branco arredondado, Inter, botões em pílula #333. */
+
+.pubform-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(20, 20, 24, 0.35);
+ 
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  animation: pubform-fundo 0.22s ease-out;
+}
+
+.pubform-corpo::webkit-scrollbar {
+  display: none;
+}
+.pubform-overlay.saindo {
+  animation: pubform-fundo-saida 0.18s ease-in forwards;
+}
+
+/* ===== Janela: dois painéis lado a lado (formulário + editor), como a visualização ===== */
+.pubform-janela {
+  display: flex;
+  gap: 16px;
+  width: min(1120px, 100%);
+  height: min(780px, calc(100dvh - 48px));
+  font-family: "inter", sans-serif;
+  animation: pubform-entrada 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.pubform-overlay.saindo .pubform-janela {
+  animation: pubform-saida 0.18s ease-in forwards;
+}
+
+/* ===== Card (cada painel) ===== */
+.pubform-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-height: 100%;
+  border-radius: 28px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ffffff 45%, #ffffff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    0 30px 80px rgba(0, 0, 0, 0.35);
+}
+.pubform-painel-form {
+  flex: 0 0 min(550px, 50%);
+}
+.pubform-painel-texto {
+  flex: 1 1 0;
+  padding: 30px 28px 0;
+  gap: 14px;
+}
+.pubform-texto-rotulo {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+}
+.pubform-painel-texto .pubform-rodape {
+  padding: 4px 0 24px;
+}
+.pubform-painel-texto .pubform-erro {
+  flex-shrink: 0;
+}
+
+/* ===== Fechar ===== */
+.pubform-fechar {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #333333;
+  background: rgba(51, 51, 51, 0.08);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.pubform-fechar:hover {
+  background: #333333;
+  color: #f5f4ee;
+  transform: rotate(90deg);
+}
+
+/* ===== Cabeçalho (título + sublinhado, como nas categorias) ===== */
+.pubform-header {
+  padding: 60px 20px 0;
+}
+.pubform-header h2 {
+  display: inline-block;
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(18pt, 3vw, 22pt);
+  letter-spacing: -1px;
+  color: #333333;
+}
+
+/* ===== Corpo com scroll próprio ===== */
+.pubform-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 34px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.pubform-linha {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.pubform-linha.dupla {
+  grid-template-columns: 1fr 1fr;
+}
+
+.pubform-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: #777777;
+}
+
+/* ===== Inputs ===== */
+.pubform-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: #333333;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.152);
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, transform 0.15s ease;
+}
+.pubform-input::placeholder {
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 400;
+}
+.pubform-input:hover:not(:disabled) {
+  border-color: rgba(51, 51, 51, 0.25);
+}
+.pubform-input:focus {
+  border-color: #333333;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(51, 51, 51, 0.08);
+  transform: translateY(-1px);
+}
+.pubform-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pubform-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* ===== Upload de imagem ===== */
+.pubform-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 16px;
+  text-align: center;
+  color: #777777;
+  border-radius: 16px;
+  border: 2px dashed rgba(51, 51, 51, 0.25);
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.pubform-drop:hover,
+.pubform-drop.arrastando {
+  border-color: #333333;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333333;
+}
+.pubform-drop strong {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #333333;
+}
+.pubform-drop small {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+.pubform-drop svg {
+  margin-bottom: 4px;
+}
+
+.pubform-preview {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #4a4a4a;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+}
+.pubform-preview img {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+.pubform-preview-acoes {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  gap: 8px;
+}
+.pubform-chip {
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 999px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pubform-chip:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* ===== Imagens padrão ===== */
+.pubform-padroes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+.pubform-padroes-titulo {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #969696;
+}
+.pubform-padroes-grade {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.pubform-padrao {
+  position: relative;
+  padding: 0;
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #e4e4e4;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.pubform-padrao img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pubform-padrao:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+}
+.pubform-padrao.ativo {
+  box-shadow: 0 0 0 3px #f5f4ee, 0 0 0 5.5px #333333;
+}
+.pubform-padrao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.pubform-padrao-check {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #f5f4ee;
+  background: #333333;
+}
+
+.pubform-padroes-aviso {
+  margin: 0;
+  padding: 14px 16px;
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: #777777;
+  border-radius: 14px;
+  background: rgba(51, 51, 51, 0.05);
+}
+
+/* ===== Erro ===== */
+.pubform-erro {
+  margin: 0;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #b92a2a;
+  border-radius: 14px;
+  background: #fdecec;
+  border: 1px solid rgba(211, 51, 51, 0.2);
+}
+
+/* ===== Rodapé / botões em pílula ===== */
+.pubform-rodape {
+  display: flex;
+  gap: 12px;
+  padding: 18px 34px 28px;
+}
+.pubform-btn {
+  flex: 1;
+  padding: 14px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  border-radius: 80px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease,
+    color 0.2s ease, box-shadow 0.2s ease;
+}
+.pubform-btn-publicar {
+  flex: 1.6;
+  border: none;
+  color: #f5f4ee;
+  background-color: #333333;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+.pubform-btn-publicar:hover:not(:disabled) {
+  background-color: transparent;
+  color: #333333;
+  box-shadow: inset 0 0 0 2px #333333;
+  transform: scale(1.01);
+}
+.pubform-btn-cancelar {
+  border: none;
+  color: #333333;
+  background-color: #fffdfd;
+  box-shadow: inset 0 0 0 2px #333333;
+}
+.pubform-btn-cancelar:hover:not(:disabled) {
+  background-color: #777777;
+  color: #f5f4ee;
+  box-shadow: none;
+  transform: scale(1.01);
+}
+.pubform-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.pubform-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ===== Foco visível ===== */
+.pubform-card button:focus-visible,
+.pubform-drop:focus-within {
+  outline: 2px solid #333333;
+  outline-offset: 2px;
+}
+
+/* ===== Telas estreitas ===== */
+@media (max-width: 900px) {
+  .pubform-overlay {
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+  .pubform-janela {
+    flex-direction: column;
+    height: auto;
+  }
+  .pubform-card {
+    max-height: none;
+  }
+  .pubform-painel-form {
+    flex: none;
+  }
+  .pubform-corpo {
+    overflow: visible;
+  }
+  .pubform-painel-texto {
+    flex: none;
+  }
+  .pubform-painel-texto .editor {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pubform-overlay {
+    padding: 12px;
+  }
+  .pubform-card {
+    border-radius: 24px;
+  }
+  .pubform-painel-texto {
+    padding: 24px 20px 0;
+  }
+  .pubform-header {
+    padding: 24px 22px 0;
+  }
+  .pubform-corpo {
+    padding: 20px 22px 6px;
+  }
+  .pubform-rodape {
+    padding: 16px 22px 22px;
+  }
+  .pubform-linha.dupla {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Animações ===== */
+@keyframes pubform-fundo { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pubform-fundo-saida { to { opacity: 0; } }
+@keyframes pubform-entrada {
+  from { opacity: 0; transform: translateY(16px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pubform-saida {
+  to { opacity: 0; transform: translateY(8px) scale(0.97); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pubform-overlay,
+  .pubform-janela { animation: none !important; }
+}
+
+/* Navegadores sem backdrop-filter */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pubform-overlay { background: rgba(20, 20, 24, 0.75); }
+}
+
+/* "Divulgar ao público": opção com caixa de seleção no padrão do sistema */
+.pubform-divulgar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1.5px solid rgba(51, 51, 51, 0.12);
+  background: #fafaf8;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+}
+.pubform-divulgar:hover:not(.desativado) {
+  border-color: rgba(51, 51, 51, 0.35);
+}
+.pubform-divulgar.desativado {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.pubform-divulgar input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: inherit;
+}
+.pubform-divulgar-caixa {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 7px;
+  border: 2px solid #b5b5b5;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.pubform-divulgar input:checked + .pubform-divulgar-caixa {
+  background: #333333;
+  border-color: #333333;
+}
+.pubform-divulgar input:checked + .pubform-divulgar-caixa::after {
+  content: "";
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: translateY(-1px) rotate(45deg);
+}
+.pubform-divulgar input:focus-visible + .pubform-divulgar-caixa {
+  outline: 3px solid rgba(51, 51, 51, 0.25);
+  outline-offset: 2px;
+}
+.pubform-divulgar-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pubform-divulgar-texto strong {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #333333;
+}
+.pubform-divulgar-texto small {
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: #777777;
+}
+
+
+/* ===== Celular: tela cheia ===== */
+@media (max-width: 560px) {
+  .pubform-overlay { padding: 0; background: rgba(0, 0, 0, 0.55); }
+  .pubform-janela { width: 100%; min-height: 100dvh; margin: 0; }
+  .pubform-card { border-radius: 0; min-height: 100dvh; }
+  .pubform-header { padding-top: calc(52px + env(safe-area-inset-top)); }
+  .pubform-rodape { padding-bottom: calc(22px + env(safe-area-inset-bottom)); }
+}

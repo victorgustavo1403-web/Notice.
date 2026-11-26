@@ -1,0 +1,262 @@
+/* ===== Seletor de data do sistema (substitui <input type="date">) ===== */
+
+.dp-campo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.152);
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.dp-campo:hover:not(.desabilitado) {
+  border-color: rgba(51, 51, 51, 0.25);
+}
+.dp-campo:focus-within,
+.dp-campo.aberto {
+  border-color: #333333;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(51, 51, 51, 0.08);
+}
+.dp-campo.desabilitado {
+  opacity: 0.6;
+}
+
+.dp-gatilho {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: #333333;
+  cursor: pointer;
+  outline: none;
+}
+.dp-gatilho:disabled {
+  cursor: not-allowed;
+}
+.dp-gatilho svg {
+  flex-shrink: 0;
+}
+.dp-gatilho span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dp-gatilho .vazio {
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 400;
+}
+.dp-limpar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  border: 0;
+  border-radius: 50%;
+  color: #333333;
+  background: rgba(51, 51, 51, 0.08);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.dp-limpar:hover {
+  background: #333333;
+  color: #f5f4ee;
+}
+
+/* ===== Pop-up do calendário ===== */
+.dp-popup {
+  z-index: 3000;
+  box-sizing: border-box;
+  padding: 18px 18px 14px;
+  border-radius: 28px;
+  font-family: "inter", sans-serif;
+  color: #333333;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ffffff 45%, #ffffff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 26px 60px rgba(0, 0, 0, 0.26),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  transform-origin: top left;
+  animation: dp-abrir 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+  overflow-y: auto;
+}
+.dp-popup.acima {
+  transform-origin: bottom left;
+}
+
+.dp-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.dp-titulo {
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.dp-nav {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  color: #333333;
+  background: rgba(51, 51, 51, 0.07);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.dp-nav:hover:not(:disabled) {
+  background: #333333;
+  color: #f5f4ee;
+  transform: scale(1.06);
+}
+.dp-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dp-semana,
+.dp-grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.dp-semana {
+  margin-bottom: 6px;
+}
+.dp-semana span {
+  text-align: center;
+  font-size: 8pt;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #777777;
+}
+.dp-grade {
+  animation: dp-troca 0.22s ease;
+}
+.dp-vazio {
+  aspect-ratio: 1;
+}
+
+.dp-dia {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: #333333;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.12s ease;
+}
+.dp-dia:hover:not(.passado):not(.selecionado) {
+  background: rgba(51, 51, 51, 0.09);
+  transform: scale(1.08);
+}
+.dp-dia:focus-visible {
+  box-shadow: 0 0 0 2px #f5f4ee, 0 0 0 4px #333333;
+}
+.dp-dia.hoje {
+  box-shadow: inset 0 0 0 2px #333333;
+}
+.dp-dia.hoje:focus-visible {
+  box-shadow: inset 0 0 0 2px #333333, 0 0 0 2px #f5f4ee, 0 0 0 4px #333333;
+}
+.dp-dia.selecionado {
+  color: #f5f4ee;
+  background: #333333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.22);
+}
+.dp-dia.passado {
+  color: #c4c1ba;
+  font-weight: 500;
+  cursor: not-allowed;
+}
+
+.dp-rodape {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(51, 51, 51, 0.1);
+}
+.dp-atalho {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  font-family: "inter", sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: #f5f4ee;
+  background: #333333;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.dp-atalho:hover:not(:disabled) {
+  color: #333333;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px #333333;
+  transform: scale(1.03);
+}
+.dp-atalho.sutil {
+  color: #333333;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px rgba(51, 51, 51, 0.25);
+}
+.dp-atalho.sutil:hover {
+  background: #777777;
+  color: #f5f4ee;
+  box-shadow: none;
+}
+.dp-atalho:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@keyframes dp-abrir {
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+.dp-popup.acima { animation-name: dp-abrir-acima; }
+@keyframes dp-abrir-acima {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes dp-troca {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dp-popup, .dp-grade { animation: none !important; }
+}

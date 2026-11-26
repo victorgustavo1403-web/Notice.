@@ -1,0 +1,7 @@
+/* Resumo semanal: o painel (PainelPublicacoes) traz o visual; aqui só o espaçamento da página */
+.hc-resumo {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(40px, 8vh, 90px) clamp(24px, 6vw, 80px) 80px;
+}

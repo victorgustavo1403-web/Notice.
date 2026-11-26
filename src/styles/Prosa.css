@@ -1,0 +1,28 @@
+/* Texto formatado das descrições (editor e visualização usam o mesmo estilo) */
+.prosa {
+  font-family: "inter", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #2c2c2e;
+  overflow-wrap: anywhere;
+}
+.prosa > :first-child { margin-top: 0; }
+.prosa > :last-child { margin-bottom: 0; }
+.prosa p { margin: 0 0 0.75em; }
+.prosa ul, .prosa ol { margin: 0 0 0.75em; padding-left: 1.45em; }
+.prosa ul { list-style: disc; }
+.prosa ol { list-style: decimal; }
+.prosa li { margin: 0.15em 0; }
+.prosa li > p { margin: 0; }
+.prosa strong { font-weight: 800; }
+.prosa em { font-style: italic; }
+.prosa u { text-decoration: underline; text-underline-offset: 2px; }
+.prosa s { text-decoration: line-through; }
+.prosa a {
+  color: #0064af;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+}
+.prosa a:hover { color: #004a82; }
+.prosa-simples { white-space: pre-line; }

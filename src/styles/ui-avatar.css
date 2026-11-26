@@ -1,0 +1,15 @@
+.avatar {
+  --tam: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: var(--tam);
+  height: var(--tam);
+  border-radius: 50%;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--cor) 16%, #ffffff);
+  color: var(--cor);
+  box-shadow: 0 0 0 2px #ffffff, 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar b { font-family: "inter", sans-serif; font-size: calc(var(--tam) * 0.38); font-weight: 800; letter-spacing: -0.02em; }

@@ -1,0 +1,861 @@
+/* =====================================================================
+   FONTES E CONFIGURAÇÕES GLOBAIS
+   ===================================================================== */
+
+@font-face {
+  font-family: "N";
+
+  src: url("../assets/fonts/Damion-Regular.ttf");
+}
+
+@font-face {
+  font-family: "inter";
+
+  src: url("../assets/fonts/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+
+  font-family: "inter";
+
+  padding: 0;
+}
+
+/* =====================================================================
+   NAVBAR: LOGO, LINKS E BOTÃO DE LOGIN
+   ===================================================================== */
+
+.nav-bar {
+  position: fixed;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 70px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 0 clamp(24px, 6vw, 80px);
+
+  box-sizing: border-box;
+
+  z-index: 1000;
+
+  top: 0;
+}
+
+.logo {
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: start;
+}
+
+.logo .logo-tema {
+  height: 34px;
+}
+
+.link-wrapper {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 60px;
+
+  isolation: isolate;
+
+  max-width: min(60%, 500px);
+}
+
+.link-distortion {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 60px;
+
+  backdrop-filter: url(#liquid-glass) blur(1px);
+
+  -webkit-backdrop-filter: blur(1px);
+
+  z-index: 0;
+}
+
+.link {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  gap: clamp(10px, 2.5vw, 26px);
+
+  padding: 10px clamp(16px, 4vw, 32px);
+
+  border-radius: 60px;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  width: clamp(220px, 32vw, 380px);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+
+    rgba(255, 255, 255, 0.12) 50%,
+
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
+  backdrop-filter: blur(1px) saturate(160%);
+
+  -webkit-backdrop-filter: blur(1px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.418);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.2),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+
+  white-space: nowrap;
+}
+
+.link::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  right: 0;
+
+  height: 55%;
+
+  background: linear-gradient(
+    to bottom,
+
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0)
+  );
+
+  border-radius: 60px 60px 0 0;
+
+  pointer-events: none;
+}
+
+.link::after {
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+
+  left: -20%;
+
+  width: 60%;
+
+  height: 200%;
+
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+
+    rgba(255, 255, 255, 0.35) 45%,
+
+    rgba(255, 255, 255, 0) 60%
+  );
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+.link a {
+  color: #333333;
+
+  font-size: clamp(6pt, 1.4vw, 10pt);
+
+  cursor: pointer;
+
+  margin: 0;
+
+  font-family: "inter";
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.login {
+  text-decoration: none;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  font-family: "inter";
+
+  font-size: clamp(8pt, 2vw, 12pt);
+
+  font-weight: bolder;
+
+  padding: 8px 18px;
+
+  color: #ffffff;
+
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  background-color: #333333;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  border-radius: 10px;
+
+  border-radius: 80px;
+
+  transition: 0.3s;
+}
+
+.login:hover {
+  background-color: #55555500;
+
+  transition: 0.3s;
+
+  box-shadow: inset 0 0 0 2px #333333;
+
+  color: #333333;
+
+  transform: scale(1.02);
+}
+
+/* =====================================================================
+   CONTÊINERES DO SCROLLSMOOTHER E FUNDO DA PÁGINA
+   ===================================================================== */
+
+#smooth-wrapper {
+  flex: 1;
+
+  background: linear-gradient(
+    135deg,
+    #b9aeae 0%,
+
+    #f5f3ee 20%,
+
+    #ffffff 50%,
+
+    #f5f4ee 80%,
+
+    #b9aeae 100%
+  );
+
+  background-attachment: fixed;
+}
+
+#smooth-content {
+  flex: 1;
+  height: auto !important;
+}
+
+#fundo{
+
+ flex: 1;
+
+  background: linear-gradient(
+    135deg,
+    #b9aeae 0%,
+
+    #f5f3ee 20%,
+
+    #ffffff 50%,
+
+    #f5f4ee 80%,
+
+    #b9aeae 100%
+  );
+
+  background-attachment: fixed;
+
+
+
+}
+/* O home.css também define #smooth-content (height: 300vh) e, como o CSS é global,
+   isso prendia a altura da landing e cortava o final da página. Aqui a altura é a do conteúdo. */
+#smooth-content.landing-content {
+  height: auto;
+}
+
+/* =====================================================================
+   HERO: CONTÊINER E IMAGENS DE FUNDO
+   ===================================================================== */
+
+.heroimg-container {
+  position: fixed;
+
+  width: 100%;
+
+  z-index: 0;
+
+  /* background-color: #333333; */
+
+  height: 100vh;
+
+  justify-content: center;
+
+  align-items: center;
+
+  display: flex;
+
+  pointer-events: none;
+}
+
+.roda {
+  width: 25%;
+
+  filter: blur(2px);
+}
+
+.roda2 {
+  width: 50%;
+
+  filter: blur(2px);
+
+  position: absolute;
+
+  object-fit: cover;
+}
+
+.roda3 {
+  width: 100%;
+
+  filter: blur(2px);
+
+  position: absolute;
+}
+
+/* =====================================================================
+   HERO: TÍTULO PRINCIPAL E TIPOGRAFIA
+   ===================================================================== */
+
+.herotext-container {
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.heroText {
+  display: flex;
+
+  align-items: center;
+
+  color: #333333;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  width: 100%;
+
+  height: 100%;
+
+  flex-direction: column;
+}
+
+.heroText-p {
+  position: relative;
+
+ padding: 0px 100px;
+
+  isolation: isolate;
+}
+
+.heroText-p::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 40%;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.911) 0%,
+
+    rgb(255, 255, 255) 50%,
+
+    rgba(255, 255, 255, 0.838) 100%
+  );
+
+  filter: blur(20px);
+
+  z-index: -1;
+
+ 
+}
+
+.n {
+  font-family: "N";
+
+  font-weight: bolder;
+
+  font-size: clamp(32pt, 12vw, 200pt);
+
+  letter-spacing: clamp(-6px, -0.75vw, -2px);
+}
+
+.otice {
+  font-family: "inter";
+
+  font-weight: 750;
+
+  font-size: clamp(18pt, 6vw, 162pt);
+
+  letter-spacing: clamp(-40px, -10px, -10px);
+}
+
+.ponto {
+  font-family: "inter";
+
+  font-size: clamp(36pt, 12vw, 210pt);
+}
+
+/* A seção “Como funciona” agora vive em ComoFunciona.jsx / styles/ComoFunciona.css */
+
+/* =====================================================================
+   ESTILOS LEGADOS / ELEMENTOS NÃO PRESENTES NO JSX ATIVO
+   ===================================================================== */
+
+.main-text {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: start;
+
+  width: 68%;
+
+  height: 100%;
+
+  gap: 12%;
+}
+
+.main-text h1 {
+  font-family: "inter";
+
+  font-weight: 800;
+
+  font-size: clamp(32pt, 8vw, 12vh);
+
+  letter-spacing: clamp(-6px, -0.75vw, -2px);
+
+  color: #333333;
+
+  line-height: 0.9;
+
+  transition: ease-in-out 0.3s;
+}
+
+.main-text h1:hover {
+  transform: scale(1.05);
+
+  padding-block: 2%;
+
+  transition: ease-in-out 0.3s;
+
+  cursor: default;
+}
+
+.main-text p {
+  font-family: "inter";
+
+  font-weight: 500;
+
+  font-size: clamp(8pt, 3vw, 2.3vh);
+
+  color: #333333;
+
+  line-height: 1.5;
+
+  width: 85%;
+}
+
+.cansei {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7%;
+}
+
+.vinicius {
+  width: 65%;
+
+  line-height: 1.2;
+
+  font-weight: 600;
+
+  color: #777;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+
+    rgba(255, 255, 255, 0.12) 50%,
+
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
+  backdrop-filter: blur(1px) saturate(160%);
+
+  -webkit-backdrop-filter: blur(1px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.418);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.2),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3),
+    0 6px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+
+  padding: 8vh;
+
+  border-radius: 60px;
+
+  font-size: clamp(8pt, 6vw, 18pt);
+
+  text-align: center;
+}
+
+.pedro {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+}
+
+.carrossel {
+  width: 80%;
+
+  height: 100%;
+
+  display: flex;
+
+  overflow-x: hidden;
+
+  padding-bottom: 2%;
+
+  border-radius: 80px;
+}
+
+.container-carrossel {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  flex-direction: row;
+
+  gap: 24px;
+
+  flex-shrink: 0;
+}
+
+.grupo-carrossel {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 24px;
+
+  flex-shrink: 0;
+
+  height: 45vh;
+
+  flex-direction: row;
+}
+
+.carrossel-img {
+  width: auto;
+
+  height: 100%;
+
+  flex-shrink: 0; /* garante que cada imagem também não seja espremida */
+
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+#ComoFuncionaPai {
+  width: 100%;
+
+  height: 15%;
+
+  margin-top: 15%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 15%;
+}
+
+.Como-h1 {
+  color: #333333;
+
+  font-family: "inter";
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+
+  font-size: 28pt;
+}
+
+.ComoFunciona {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 30px;
+
+  height: fit-content;
+}
+
+.como-text p {
+  width: 0%;
+
+  font-family: "inter";
+
+  font-size: 14pt;
+
+  line-height: 1.5;
+}
+
+.como-text {
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  justify-content: start;
+
+  flex-direction: column;
+
+  gap: 50%;
+}
+
+.comofunciona-img {
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+}
+
+.comofunciona-img1 {
+  display: flex;
+
+  justify-content: end;
+
+  align-items: center;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 2%;
+}
+
+.comofunciona-img2 {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: start;
+
+  flex-direction: column;
+
+  gap: 10%;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 2%;
+}
+
+.img-cf1 {
+  flex-shrink: 0; /* garante que cada imagem também não seja espremida */
+
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+
+  width: 60%;
+
+  height: auto;
+}
+
+.img-cf2 {
+  flex-shrink: 0; /* garante que cada imagem também não seja espremida */
+
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+
+  width: 50%;
+
+  height: auto;
+}
+
+.Conhecerbot {
+  font-family: "inter";
+
+  font-size: 14pt;
+
+  color: #f5f4ee;
+
+  font-weight: 900;
+
+  background-color: #333333;
+
+  padding: 10px 30px;
+
+  width: fit-content;
+
+  border-radius: 60px;
+
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+.Conhecerbot:hover {
+  background-color: #55555500;
+
+  transition: 0.3s;
+
+  transform: scale(1.02);
+
+  color: #333333;
+
+  box-shadow: inset 0 0 0 2px #333333;
+}
+
+/* =====================================================================
+   RESPONSIVIDADE
+   ===================================================================== */
+
+@media (max-width: 768px) {
+  .link-wrapper {
+    max-width: 70%;
+  }
+
+  .heroimg-container {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-bar {
+    padding: 0 16px;
+  }
+
+  .link-wrapper {
+    display: none;
+  }
+
+  .login {
+    font-size: 8pt;
+
+    padding: 6px;
+  }
+
+  .heroText {
+    gap: 2px;
+  }
+
+  .heroimg-container {
+    display: none;
+  }
+}
+
+/* Atalho para a agenda pública, logo abaixo do botão principal */
+.hero-eventos {
+  display: block;
+  width: fit-content;
+  margin-top: 18px;
+  font-family: "inter", sans-serif;
+  font-weight: 700;
+  font-size: 10pt;
+  color: #333333;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s, background 0.25s;
+}
+.hero-eventos:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(2px);
+}
